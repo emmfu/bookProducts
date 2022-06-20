@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +16,7 @@ import { ProductShelfComponent } from './components/product-shelf/product-shelf.
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot([
       {path: 'shelf', component: ProductShelfComponent},
       {path: 'item', component: ProductItemComponent},

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/products';
-import { OnselectService } from 'src/app/services/onselect.service';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-product-item',
@@ -17,11 +17,11 @@ export class ProductItemComponent implements OnInit {
     console.log(this.currentSelectedProduct);
   }
 
-  getId(id: number):string {
-    return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + id + ".png"
+  getId(isbn: string):string {
+    return  "https://covers.openlibrary.org/b/isbn/" + isbn + "-M.png"
   }
 
-  constructor(private appService:OnselectService) { }
+  constructor(private appService:ProductService) { }
 
   ngOnInit(): void {
     this.appService.currentSelectedProduct.subscribe(product => this.currentSelectedProduct = product)
