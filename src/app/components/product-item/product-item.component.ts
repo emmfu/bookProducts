@@ -18,7 +18,7 @@ export class ProductItemComponent implements OnInit {
   }
 
   getId(isbn: string):string {
-    return  "https://covers.openlibrary.org/b/isbn/" + isbn + "-M.png"
+    return  "https://covers.openlibrary.org/b/isbn/" + isbn + "-L.jpg"
   }
 
   constructor(private appService:ProductService) { }

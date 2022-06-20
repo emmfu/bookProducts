@@ -19,8 +19,10 @@ export class ProductShelfComponent implements OnInit {
   @Output() msgToSibling = new EventEmitter<Product>();
 
   getProducts():void {
-    this.http.get(this.url).subscribe(data =>{this.products = data});
+    this.http.get(this.url).subscribe(data =>this.products = data);
   }
+
+
   
   onSelect(product:Product):void {
     this.appService.updateSelectedProduct(product);
@@ -33,14 +35,18 @@ export class ProductShelfComponent implements OnInit {
   }
 
   getId(isbn: string):string {
-    return "https://covers.openlibrary.org/b/isbn/" + isbn + "-M.png"
+    return "https://covers.openlibrary.org/b/isbn/" + isbn + "-M.jpg"
   }
 
   constructor(private appService:ProductService, private http: HttpClient) { }
 
+  
+
   ngOnInit(): void {
+    
     this.appService.currentSelectedProduct.subscribe(selProd => this.selectedProduct = selProd);
     this.getProducts();
+    
   }
 
 }
