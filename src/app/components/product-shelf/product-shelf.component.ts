@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { PRODUCTS } from 'src/app/models/mock-products';
+import { HttpClient } from '@angular/common/http';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Product } from 'src/app/models/products';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-product-shelf',
@@ -10,21 +11,42 @@ import { Product } from 'src/app/models/products';
 export class ProductShelfComponent implements OnInit {
   
   isInCart:boolean = false;
-  products = PRODUCTS;
+  products:any;
+  selectedProduct?:Product;
+
+  url='http://localhost:8080/api/v1/product/all'
+
+  @Output() msgToSibling = new EventEmitter<Product>();
+
+  getProducts():void {
+    this.http.get(this.url).subscribe(data =>this.products = data);
+  }
+
+
   
+  onSelect(product:Product):void {
+    this.appService.updateSelectedProduct(product);
+  }
+
   onAddToCart(product:Product):void {
+    //addToCart(product);
     console.log(product);
     this.isInCart=true;
   }
 
-
-  getId(id: number):string {
-    return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + id + ".png"
+  getId(isbn: string):string {
+    return "https://covers.openlibrary.org/b/isbn/" + isbn + "-M.jpg"
   }
 
-  constructor() { }
+  constructor(private appService:ProductService, private http: HttpClient) { }
+
+  
 
   ngOnInit(): void {
+    
+    this.appService.currentSelectedProduct.subscribe(selProd => this.selectedProduct = selProd);
+    this.getProducts();
+    
   }
 
 }
