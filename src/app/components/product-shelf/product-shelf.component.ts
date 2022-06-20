@@ -15,7 +15,6 @@ export class ProductShelfComponent implements OnInit {
   isInCart:boolean = false;
   products:any;
 
-  books: any;
   url='http://localhost:8080/api/v1/product/all'
   constructor(private http: HttpClient) { }
   
@@ -31,8 +30,7 @@ export class ProductShelfComponent implements OnInit {
 
 
   getProducts(): void{
-    this.http.get(this.url).subscribe(data => {this.products = data})
-    
+    this.http.get(this.url).subscribe(data => {this.products = data})  
   }
 
   ngOnInit(): void {
