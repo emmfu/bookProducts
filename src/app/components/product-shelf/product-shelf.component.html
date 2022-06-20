@@ -1,6 +1,6 @@
 <div class="container-flex" id="shelf">
     <div *ngFor="let product of products" class="shelf-product" style="width: 225px;">
-        <a href="">
+        <a (click)="onSelect(product)" routerLink="/item">
 
             <div class="shelf-product-img-cont">
                 <div class="shelf-product-img">

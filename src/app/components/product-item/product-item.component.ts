@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { PRODUCTS } from 'src/app/models/mock-products';
+import { Component, Input, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/products';
+import { OnselectService } from 'src/app/services/onselect.service';
 
 @Component({
   selector: 'app-product-item',
@@ -9,22 +9,22 @@ import { Product } from 'src/app/models/products';
 })
 export class ProductItemComponent implements OnInit {
 
-  products = PRODUCTS;
-  product=this.products[1];
-  isInCart:boolean=false;
+  @Input()
+  currentSelectedProduct?: Product;
 
-  onAddToCart(product:Product):void {
-    console.log(product);
-    this.isInCart=true;
+
+  onAddToCart():void {
+    console.log(this.currentSelectedProduct);
   }
 
   getId(id: number):string {
     return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + id + ".png"
   }
 
-  constructor() { }
+  constructor(private appService:OnselectService) { }
 
   ngOnInit(): void {
+    this.appService.currentSelectedProduct.subscribe(product => this.currentSelectedProduct = product)
   }
 
 }

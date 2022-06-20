@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { PRODUCTS } from 'src/app/models/mock-products';
 import { Product } from 'src/app/models/products';
+import { OnselectService } from 'src/app/services/onselect.service';
 
 @Component({
   selector: 'app-product-shelf',
@@ -11,7 +13,16 @@ export class ProductShelfComponent implements OnInit {
   
   isInCart:boolean = false;
   products = PRODUCTS;
+  selectedProduct?:Product;
+
+  @Output() msgToSibling = new EventEmitter<Product>();
   
+  onSelect(product:Product):void {
+    
+    console.log(product);
+    this.appService.updateSelectedProduct(product);
+  }
+
   onAddToCart(product:Product):void {
     console.log(product);
     this.isInCart=true;
@@ -22,9 +33,10 @@ export class ProductShelfComponent implements OnInit {
     return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + id + ".png"
   }
 
-  constructor() { }
+  constructor(private appService:OnselectService) { }
 
   ngOnInit(): void {
+    this.appService.currentSelectedProduct.subscribe(selProd => this.selectedProduct = selProd);
   }
 
 }
