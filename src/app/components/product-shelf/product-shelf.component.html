@@ -1,16 +1,20 @@
 <div class="container">
   <div class="row">
-    <h2 class="text-center mt-5">Books</h2>
+    <h2 class="text-center mt-5">Our Books</h2>
 
-    <div class="row row-cols-1 row-cols-md-4 g-4">
+    <div class="row row-cols-1 row-cols-md-4 g-4 d-flex align-items-stretch">
       <div class="col" *ngFor="let product of products">
         <div class="card">
           <a (click)="onSelect(product)" routerLink="/item">
-            <img src="{{ getId(product.id) }}" class="card-img-top" alt="..." />
+            <img
+              src="{{ getId(product.isbn) }}"
+              class="card-img-top"
+              alt="{{ product.title | lowercase }}"
+            />
             <div class="card-body">
-              <h5 class="card-title">{{ product.title }}</h5>
+              <h5 class="card-title">{{ product.title | uppercase }}</h5>
               <div class="book-author">by {{ product.author }}</div>
-              <div class="book-price">${{ product.list_price }}</div>
+              <div class="book-price">{{ product.list_price | currency }}</div>
             </div>
           </a>
         </div>
@@ -19,38 +23,6 @@
           Add to Cart
         </button>
       </div>
-    </div>
-  </div>
-</div>
-
-<div class="container-flex" id="shelf">
-  <div
-    *ngFor="let product of products"
-    class="shelf-product"
-    style="width: 225px"
-  >
-    <a (click)="onSelect(product)" routerLink="/item">
-      <div class="shelf-product-img-cont">
-        <div class="shelf-product-img">
-          <!-- <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/33.png" alt="The Bard"> -->
-          <img src="{{ getId(product.isbn) }}" alt="" />
-        </div>
-      </div>
-      <div class="shelf-product-text-cont">
-        <div class="book-title">{{ product.title }}</div>
-        <div class="book-author">by {{ product.author }}</div>
-        <div class="book-price">${{ product.list_price }}</div>
-      </div>
-    </a>
-
-    <div class="purchase">
-      <!-- [disabled]="isInCart" makes all buttons disabled-->
-      <button
-        class="btn btn-success btn-lg btn-block"
-        (click)="onAddToCart(product)"
-      >
-        Add to Cart
-      </button>
     </div>
   </div>
 </div>
